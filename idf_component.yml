@@ -1,0 +1,30 @@
+version: "0.1.0"
+description: "Thin C++ wrapper around lwIP TCP sockets for ESP-IDF: TcpClient and TcpListener, with timeouts, per-interface binding and optional IPv6"
+url: "https://github.com/nsrtylmz/esp32-tcplib"
+repository: "https://github.com/nsrtylmz/esp32-tcplib.git"
+issues: "https://github.com/nsrtylmz/esp32-tcplib/issues"
+documentation: "https://github.com/nsrtylmz/esp32-tcplib#readme"
+license: "MIT"
+tags:
+  - tcp
+  - socket
+  - lwip
+  - network
+  - ethernet
+  - wifi
+  - cpp
+dependencies:
+  idf: ">=5.0"
+files:
+  exclude:
+    - "docs/**"
+    - "**/build/**"
+    - "**/managed_components/**"
+    - "**/sdkconfig"
+    - "**/sdkconfig.old"
+    - "**/dependencies.lock"
+    - ".github/**"
+examples:
+  - path: examples/tcp_client
+  - path: examples/tcp_multi_client
+  - path: examples/tcp_listener

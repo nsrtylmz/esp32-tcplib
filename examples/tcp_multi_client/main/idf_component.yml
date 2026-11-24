@@ -1,0 +1,5 @@
+dependencies:
+  # tcplib itself comes from ../CMakeLists.txt (EXTRA_COMPONENT_DIRS), so that
+  # the example builds whatever the repository folder is called.
+  protocol_examples_common:
+    path: ${IDF_PATH}/examples/common_components/protocol_examples_common

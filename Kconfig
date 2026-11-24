@@ -1,0 +1,10 @@
+menu "tcplib"
+    config TCPLIB_IPV6
+        bool "Enable IPv6 support"
+        default n
+        depends on LWIP_IPV6
+        help
+            TcpClient::connect() accepts IPv6 addresses and hostnames that resolve
+            to IPv6, and TcpListener accepts both IPv4 and IPv6 clients (one
+            dual-stack socket). Off: IPv4 only.
+endmenu

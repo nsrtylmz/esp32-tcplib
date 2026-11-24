@@ -1,0 +1,32 @@
+# Doxygen configuration for tcplib.
+# Generate the HTML docs from this folder with:   doxygen
+# Output: docs/html/index.html
+# Only the settings that differ from Doxygen's defaults are listed.
+
+PROJECT_NAME           = "tcplib"
+PROJECT_BRIEF          = "Thin C++ wrapper around lwIP TCP sockets for ESP-IDF"
+PROJECT_NUMBER         = 0.1.0
+OUTPUT_DIRECTORY       = docs
+
+INPUT                  = include README.md README.tr.md
+FILE_PATTERNS          = *.h *.md
+RECURSIVE              = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+HIDE_UNDOC_MEMBERS     = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_NO_PARAMDOC       = YES
+QUIET                  = YES
+
+# The API is the same for every configuration; document the IPv6-enabled build.
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = NO
+PREDEFINED             = CONFIG_TCPLIB_IPV6=1
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+SOURCE_BROWSER         = NO

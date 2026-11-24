@@ -1,0 +1,57 @@
+#pragma once
+// Turns the "Listener Configuration" menuconfig entries into a table.
+
+#include <stdint.h>
+#include "sdkconfig.h"
+
+struct ServerConfig {
+	int         id;
+	uint16_t    port;
+	const char* netif_key;   // "" = any interface
+};
+
+// ---- server 1 ----
+#if CONFIG_LISTENER_SERVER1_IFACE_WIFI_STA
+#define LISTENER_SERVER1_KEY "WIFI_STA_DEF"
+#elif CONFIG_LISTENER_SERVER1_IFACE_ETH
+#define LISTENER_SERVER1_KEY "ETH_DEF"
+#elif CONFIG_LISTENER_SERVER1_IFACE_CUSTOM
+#define LISTENER_SERVER1_KEY CONFIG_LISTENER_SERVER1_IFACE_KEY
+#else
+#define LISTENER_SERVER1_KEY ""
+#endif
+
+// ---- server 2 ----
+#if CONFIG_LISTENER_SERVER2_IFACE_WIFI_STA
+#define LISTENER_SERVER2_KEY "WIFI_STA_DEF"
+#elif CONFIG_LISTENER_SERVER2_IFACE_ETH
+#define LISTENER_SERVER2_KEY "ETH_DEF"
+#elif CONFIG_LISTENER_SERVER2_IFACE_CUSTOM
+#define LISTENER_SERVER2_KEY CONFIG_LISTENER_SERVER2_IFACE_KEY
+#else
+#define LISTENER_SERVER2_KEY ""
+#endif
+
+// ---- server 3 ----
+#if CONFIG_LISTENER_SERVER3_IFACE_WIFI_STA
+#define LISTENER_SERVER3_KEY "WIFI_STA_DEF"
+#elif CONFIG_LISTENER_SERVER3_IFACE_ETH
+#define LISTENER_SERVER3_KEY "ETH_DEF"
+#elif CONFIG_LISTENER_SERVER3_IFACE_CUSTOM
+#define LISTENER_SERVER3_KEY CONFIG_LISTENER_SERVER3_IFACE_KEY
+#else
+#define LISTENER_SERVER3_KEY ""
+#endif
+
+static const ServerConfig kServers[] = {
+#if CONFIG_LISTENER_SERVER1_ENABLE
+	{ 1, CONFIG_LISTENER_SERVER1_PORT, LISTENER_SERVER1_KEY },
+#endif
+#if CONFIG_LISTENER_SERVER2_ENABLE
+	{ 2, CONFIG_LISTENER_SERVER2_PORT, LISTENER_SERVER2_KEY },
+#endif
+#if CONFIG_LISTENER_SERVER3_ENABLE
+	{ 3, CONFIG_LISTENER_SERVER3_PORT, LISTENER_SERVER3_KEY },
+#endif
+	{ 0, 0, nullptr }   // end marker (keeps the array non-empty)
+};

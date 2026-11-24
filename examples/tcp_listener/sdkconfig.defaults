@@ -1,0 +1,6 @@
+# Defaults for a fresh configuration; Wi-Fi SSID/password are set in menuconfig.
+CONFIG_FREERTOS_HZ=1000
+CONFIG_LOG_COLORS=y
+CONFIG_LWIP_SO_RCVBUF=y
+# 3 listeners + 3 connections each need 12 sockets (default limit: 10)
+CONFIG_LWIP_MAX_SOCKETS=16

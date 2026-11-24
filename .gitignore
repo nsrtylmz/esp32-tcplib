@@ -1,0 +1,31 @@
+# ESP-IDF build output
+build/
+managed_components/
+dependencies.lock
+
+# Generated configuration: holds local settings such as the Wi-Fi password.
+# Examples take their defaults from sdkconfig.defaults instead.
+sdkconfig
+sdkconfig.old
+
+# Doxygen output (run `doxygen` to regenerate)
+docs/
+
+# IDE / tool files
+.metadata/
+.settings/
+.project
+.cproject
+.clangd
+.cache/
+.vscode/
+.idea/
+tool_set_config.json
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

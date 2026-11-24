@@ -1,0 +1,122 @@
+menu "Listener Configuration"
+
+    config LISTENER_MAX_CLIENTS
+        int "Max connections per server"
+        range 1 8
+        default 3
+        help
+            Connections a server serves at the same time. A client beyond that
+            is told "busy" and closed. Keep the total of all servers below
+            CONFIG_LWIP_MAX_SOCKETS (each listener also uses one socket).
+
+    config LISTENER_IDLE_TIMEOUT_S
+        int "Close idle connections after (s, 0 = never)"
+        range 0 3600
+        default 60
+
+    menu "Server 1"
+        config LISTENER_SERVER1_ENABLE
+            bool "Enable server 1"
+            default y
+
+        config LISTENER_SERVER1_PORT
+            int "Port"
+            range 1 65535
+            default 5001
+            depends on LISTENER_SERVER1_ENABLE
+
+        choice LISTENER_SERVER1_IFACE
+            prompt "Accept connections from"
+            default LISTENER_SERVER1_IFACE_WIFI_STA
+            depends on LISTENER_SERVER1_ENABLE
+            help
+                Interface the listening socket is bound to (TcpOptions::netif_key).
+                Connections arriving on any other interface are refused.
+
+            config LISTENER_SERVER1_IFACE_ANY
+                bool "Any interface"
+            config LISTENER_SERVER1_IFACE_WIFI_STA
+                bool "Wi-Fi station only (WIFI_STA_DEF)"
+            config LISTENER_SERVER1_IFACE_ETH
+                bool "Ethernet only (ETH_DEF)"
+            config LISTENER_SERVER1_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config LISTENER_SERVER1_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_AP_DEF"
+            depends on LISTENER_SERVER1_IFACE_CUSTOM
+    endmenu
+
+    menu "Server 2"
+        config LISTENER_SERVER2_ENABLE
+            bool "Enable server 2"
+            default y
+
+        config LISTENER_SERVER2_PORT
+            int "Port"
+            range 1 65535
+            default 5002
+            depends on LISTENER_SERVER2_ENABLE
+
+        choice LISTENER_SERVER2_IFACE
+            prompt "Accept connections from"
+            default LISTENER_SERVER2_IFACE_ETH
+            depends on LISTENER_SERVER2_ENABLE
+            help
+                Interface the listening socket is bound to (TcpOptions::netif_key).
+                Connections arriving on any other interface are refused.
+
+            config LISTENER_SERVER2_IFACE_ANY
+                bool "Any interface"
+            config LISTENER_SERVER2_IFACE_WIFI_STA
+                bool "Wi-Fi station only (WIFI_STA_DEF)"
+            config LISTENER_SERVER2_IFACE_ETH
+                bool "Ethernet only (ETH_DEF)"
+            config LISTENER_SERVER2_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config LISTENER_SERVER2_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_AP_DEF"
+            depends on LISTENER_SERVER2_IFACE_CUSTOM
+    endmenu
+
+    menu "Server 3"
+        config LISTENER_SERVER3_ENABLE
+            bool "Enable server 3"
+            default y
+
+        config LISTENER_SERVER3_PORT
+            int "Port"
+            range 1 65535
+            default 5003
+            depends on LISTENER_SERVER3_ENABLE
+
+        choice LISTENER_SERVER3_IFACE
+            prompt "Accept connections from"
+            default LISTENER_SERVER3_IFACE_ANY
+            depends on LISTENER_SERVER3_ENABLE
+            help
+                Interface the listening socket is bound to (TcpOptions::netif_key).
+                Connections arriving on any other interface are refused.
+
+            config LISTENER_SERVER3_IFACE_ANY
+                bool "Any interface"
+            config LISTENER_SERVER3_IFACE_WIFI_STA
+                bool "Wi-Fi station only (WIFI_STA_DEF)"
+            config LISTENER_SERVER3_IFACE_ETH
+                bool "Ethernet only (ETH_DEF)"
+            config LISTENER_SERVER3_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config LISTENER_SERVER3_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_AP_DEF"
+            depends on LISTENER_SERVER3_IFACE_CUSTOM
+    endmenu
+
+endmenu

@@ -1,0 +1,151 @@
+menu "Multi Client Configuration"
+
+    config MULTI_DEFAULT_HOST
+        string "Default server address"
+        default "192.168.1.100"
+        help
+            Server used by every client whose own address is left empty.
+            IPv4 address, hostname, or IPv6 address (IPv6 needs
+            tcplib → Enable IPv6 support).
+
+    config MULTI_DEFAULT_PORT
+        int "Default server port"
+        range 1 65535
+        default 3333
+
+    config MULTI_SEND_PERIOD_MS
+        int "Message period (ms)"
+        range 100 600000
+        default 2000
+        help
+            Each connected client sends one numbered line this often and
+            checks that the server echoes it back.
+
+    config MULTI_CONNECT_TIMEOUT_MS
+        int "Connect timeout (ms)"
+        range 100 60000
+        default 10000
+
+    config MULTI_RETRY_DELAY_MS
+        int "Delay before reconnecting (ms)"
+        range 100 600000
+        default 5000
+
+    menu "Client 1"
+        config MULTI_CLIENT1_ENABLE
+            bool "Enable client 1"
+            default y
+
+        config MULTI_CLIENT1_HOST
+            string "Server address (empty = default)"
+            default ""
+            depends on MULTI_CLIENT1_ENABLE
+
+        config MULTI_CLIENT1_PORT
+            int "Server port (0 = default)"
+            range 0 65535
+            default 0
+            depends on MULTI_CLIENT1_ENABLE
+
+        choice MULTI_CLIENT1_IFACE
+            prompt "Network interface"
+            default MULTI_CLIENT1_IFACE_ANY
+            depends on MULTI_CLIENT1_ENABLE
+            help
+                Interface this client's socket is bound to (TcpOptions::netif_key).
+
+            config MULTI_CLIENT1_IFACE_ANY
+                bool "Any (routing decides)"
+            config MULTI_CLIENT1_IFACE_WIFI_STA
+                bool "Wi-Fi station (WIFI_STA_DEF)"
+            config MULTI_CLIENT1_IFACE_ETH
+                bool "Ethernet (ETH_DEF)"
+            config MULTI_CLIENT1_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config MULTI_CLIENT1_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_STA_DEF"
+            depends on MULTI_CLIENT1_IFACE_CUSTOM
+    endmenu
+
+    menu "Client 2"
+        config MULTI_CLIENT2_ENABLE
+            bool "Enable client 2"
+            default y
+
+        config MULTI_CLIENT2_HOST
+            string "Server address (empty = default)"
+            default ""
+            depends on MULTI_CLIENT2_ENABLE
+
+        config MULTI_CLIENT2_PORT
+            int "Server port (0 = default)"
+            range 0 65535
+            default 0
+            depends on MULTI_CLIENT2_ENABLE
+
+        choice MULTI_CLIENT2_IFACE
+            prompt "Network interface"
+            default MULTI_CLIENT2_IFACE_WIFI_STA
+            depends on MULTI_CLIENT2_ENABLE
+            help
+                Interface this client's socket is bound to (TcpOptions::netif_key).
+
+            config MULTI_CLIENT2_IFACE_ANY
+                bool "Any (routing decides)"
+            config MULTI_CLIENT2_IFACE_WIFI_STA
+                bool "Wi-Fi station (WIFI_STA_DEF)"
+            config MULTI_CLIENT2_IFACE_ETH
+                bool "Ethernet (ETH_DEF)"
+            config MULTI_CLIENT2_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config MULTI_CLIENT2_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_STA_DEF"
+            depends on MULTI_CLIENT2_IFACE_CUSTOM
+    endmenu
+
+    menu "Client 3"
+        config MULTI_CLIENT3_ENABLE
+            bool "Enable client 3"
+            default y
+
+        config MULTI_CLIENT3_HOST
+            string "Server address (empty = default)"
+            default ""
+            depends on MULTI_CLIENT3_ENABLE
+
+        config MULTI_CLIENT3_PORT
+            int "Server port (0 = default)"
+            range 0 65535
+            default 0
+            depends on MULTI_CLIENT3_ENABLE
+
+        choice MULTI_CLIENT3_IFACE
+            prompt "Network interface"
+            default MULTI_CLIENT3_IFACE_ANY
+            depends on MULTI_CLIENT3_ENABLE
+            help
+                Interface this client's socket is bound to (TcpOptions::netif_key).
+
+            config MULTI_CLIENT3_IFACE_ANY
+                bool "Any (routing decides)"
+            config MULTI_CLIENT3_IFACE_WIFI_STA
+                bool "Wi-Fi station (WIFI_STA_DEF)"
+            config MULTI_CLIENT3_IFACE_ETH
+                bool "Ethernet (ETH_DEF)"
+            config MULTI_CLIENT3_IFACE_CUSTOM
+                bool "Custom esp_netif key"
+        endchoice
+
+        config MULTI_CLIENT3_IFACE_KEY
+            string "esp_netif key"
+            default "WIFI_STA_DEF"
+            depends on MULTI_CLIENT3_IFACE_CUSTOM
+    endmenu
+
+endmenu

@@ -1,0 +1,74 @@
+menu "Example Configuration"
+
+    choice EXAMPLE_IP_MODE
+        prompt "IP Version"
+        default EXAMPLE_IPV4
+        help
+            Address family of the server address below.
+
+        config EXAMPLE_IPV4
+            bool "IPV4"
+
+        config EXAMPLE_IPV6
+            bool "IPV6"
+            depends on LWIP_IPV6
+            select TCPLIB_IPV6
+            help
+                Also turns on tcplib's IPv6 support (CONFIG_TCPLIB_IPV6).
+    endchoice
+
+    config EXAMPLE_HOST_IPV4_ADDR
+        string "IPV4 Address"
+        default "192.168.0.165"
+        depends on EXAMPLE_IPV4
+        help
+            IPv4 address or hostname of the server.
+
+    config EXAMPLE_HOST_IPV6_ADDR
+        string "IPV6 Address"
+        default "FE80::30AD:E57B:C212:68AD"
+        depends on EXAMPLE_IPV6
+        help
+            IPv6 address of the server, without a "%zone" suffix.
+            A link-local address (fe80::...) is reached through the interface
+            selected below.
+
+    config EXAMPLE_HOST_PORT
+        int "Port"
+        range 1 65535
+        default 3333
+        help
+            Server port.
+
+    config EXAMPLE_CONNECT_TIMEOUT_MS
+        int "Connect timeout (ms)"
+        range 100 60000
+        default 10000
+        help
+            How long one connection attempt may take (TCP handshake only, not DNS).
+
+    choice EXAMPLE_INTERFACE
+        prompt "Interface selection"
+        default EXAMPLE_IFACE_AUTO
+        help
+            Network interface used for the connection (TcpOptions::netif_key).
+
+        config EXAMPLE_IFACE_AUTO
+            bool "Auto"
+            help
+                Any interface (routing decides). Link-local IPv6 addresses use
+                the default interface.
+
+        config EXAMPLE_USER_SPECIFIED_IFACE
+            bool "User specified interface"
+    endchoice
+
+    config EXAMPLE_NETIF_KEY
+        string "Interface key (esp_netif)"
+        default "WIFI_STA_DEF"
+        depends on EXAMPLE_USER_SPECIFIED_IFACE
+        help
+            esp_netif key of the interface, e.g. "WIFI_STA_DEF" (Wi-Fi station)
+            or "ETH_DEF" (Ethernet).
+
+endmenu
